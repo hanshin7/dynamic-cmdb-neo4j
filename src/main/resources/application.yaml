@@ -1,0 +1,17 @@
+server:
+  port: 8022
+spring:
+  application:
+    name: cmdb-neo4j
+  data:
+    neo4j:
+      username: neo4j
+      password: 123456
+      uri: bolt://127.0.0.1:7687
+
+knife4j:
+  enable: true
+logging:
+  level:
+    root: info
+  config: classpath:logback-spring.xml
