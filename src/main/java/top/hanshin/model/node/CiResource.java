@@ -13,7 +13,7 @@ import java.util.Set;
 @Data
 @Accessors(chain = true)
 @NoArgsConstructor
-public class CiBusiModel extends BaseNode {
+public class CiResource extends BaseNode {
 
     private String ciKey;
 

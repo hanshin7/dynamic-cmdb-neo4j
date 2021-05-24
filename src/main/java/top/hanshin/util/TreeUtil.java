@@ -1,8 +1,8 @@
 package top.hanshin.util;
 
 import org.springframework.util.StringUtils;
-import top.hanshin.model.CiNode;
-import top.hanshin.model.node.Ci;
+import top.hanshin.model.CiModelVO;
+import top.hanshin.model.node.CiModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,28 +13,28 @@ public class TreeUtil {
     private TreeUtil() {
     }
 
-    public static List<CiNode> builTree(List<Ci> ciList){
+    public static List<CiModelVO> builTree(List<CiModel> ciModelList){
 
-        List<CiNode> tree =new  ArrayList<>();
-        for(CiNode node : getRootNode(ciList)) {
-            node=buildChilTree(ciList, node);
+        List<CiModelVO> tree =new  ArrayList<>();
+        for(CiModelVO node : getRootNode(ciModelList)) {
+            node=buildChilTree(ciModelList, node);
             tree.add(node);
         }
         return tree;
     }
 
     //递归，建立子树形结构
-    private static CiNode buildChilTree(List<Ci> ciList, CiNode pNode){
-        List<CiNode> children =new  ArrayList<>();
-        for(Ci node : ciList) {
+    private static CiModelVO buildChilTree(List<CiModel> ciModelList, CiModelVO pNode){
+        List<CiModelVO> children =new  ArrayList<>();
+        for(CiModel node : ciModelList) {
             if(pNode.getCode().equals(node.getParentCode())) {
-                CiNode ciNode = new CiNode();
-                ciNode.setId(node.getId());
-                ciNode.setCode(node.getCode());
-                ciNode.setParentCode(node.getParentCode());
-                ciNode.setName(node.getName());
-                ciNode.setEndItem(node.getEndFlag());
-                children.add(buildChilTree(ciList, ciNode));
+                CiModelVO ciModelVO = new CiModelVO();
+                ciModelVO.setId(node.getId());
+                ciModelVO.setCode(node.getCode());
+                ciModelVO.setParentCode(node.getParentCode());
+                ciModelVO.setName(node.getName());
+                ciModelVO.setEndItem(node.getEndFlag());
+                children.add(buildChilTree(ciModelList, ciModelVO));
             }
         }
         pNode.setChildren(children);
@@ -42,17 +42,17 @@ public class TreeUtil {
     }
 
     //获取根节点
-    private static List<CiNode> getRootNode(List<Ci> ciList) {
-        List<CiNode> rootList =new  ArrayList<>();
-        for(Ci node : ciList) {
+    private static List<CiModelVO> getRootNode(List<CiModel> ciModelList) {
+        List<CiModelVO> rootList =new  ArrayList<>();
+        for(CiModel node : ciModelList) {
             if(StringUtils.isEmpty(node.getParentCode())) {
-                CiNode ciNode = new CiNode();
-                ciNode.setId(node.getId());
-                ciNode.setCode(node.getCode());
-                ciNode.setParentCode(node.getParentCode());
-                ciNode.setName(node.getName());
-                ciNode.setEndItem(node.getEndFlag());
-                rootList.add(ciNode);
+                CiModelVO ciModelVO = new CiModelVO();
+                ciModelVO.setId(node.getId());
+                ciModelVO.setCode(node.getCode());
+                ciModelVO.setParentCode(node.getParentCode());
+                ciModelVO.setName(node.getName());
+                ciModelVO.setEndItem(node.getEndFlag());
+                rootList.add(ciModelVO);
             }
         }
         return rootList;

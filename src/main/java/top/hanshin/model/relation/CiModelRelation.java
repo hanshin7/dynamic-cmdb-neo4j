@@ -3,21 +3,20 @@ package top.hanshin.model.relation;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.neo4j.ogm.annotation.*;
-import top.hanshin.model.node.Ci;
-import top.hanshin.model.node.CiBusiModel;
+import top.hanshin.model.node.CiModel;
 
-@RelationshipEntity(type = "CI_MODEL")
+@RelationshipEntity(type = "CI_CI")
 @Data
 @RequiredArgsConstructor
-public class CiToBusiModelRelation {
+public class CiModelRelation {
 
     @Id
     @GeneratedValue
     private Long id;
 
     @StartNode
-    private final Ci startNode;
+    private final CiModel startNode;
 
     @EndNode
-    private final CiBusiModel endNode;
+    private final CiModel endNode;
 }

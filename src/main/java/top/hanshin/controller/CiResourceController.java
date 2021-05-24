@@ -4,38 +4,40 @@ import com.sun.istack.internal.NotNull;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Page;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import top.hanshin.constant.ErrorCode;
 import top.hanshin.constant.SysConstance;
 import top.hanshin.exception.CommonException;
-import top.hanshin.service.ICiBusiModelService;
+import top.hanshin.model.PageDTO;
+import top.hanshin.model.RelDTO;
+import top.hanshin.model.node.CiResource;
+import top.hanshin.service.ICiResourceService;
 import top.hanshin.util.R;
 
-import java.util.List;
 import java.util.Map;
 
-@Api(tags="CI配置库-实体对象")
+@Api(tags="资源管理")
 @Validated
 @RestController
-@RequestMapping("/ci-model")
-public class CiBusiModelController {
+@RequestMapping("/ci")
+public class CiResourceController {
 
     @Autowired
-    private ICiBusiModelService ciBusiModelService;
+    private ICiResourceService ciResourceService;
 
-    @ApiOperation(value="查询列表")
+    @ApiOperation(value="资源列表")
 	@GetMapping("/list")
-	public R<List<Map<String, Object>>> list(PageRequest pageRequest) {
-	    return R.data(ciBusiModelService.list(pageRequest));
+	public R<Page<CiResource>> list(PageDTO dto) {
+	    return R.data(ciResourceService.list(dto));
 	}
 
     @ApiOperation(value="查询")
     @GetMapping("/detail")
     public R<Map<String, Object>> detail(@RequestParam("id") String id) {
-        return R.data(ciBusiModelService.detail(id));
+        return R.data(ciResourceService.detail(id));
     }
 
     @ApiOperation(value="新增")
@@ -45,8 +47,14 @@ public class CiBusiModelController {
                 StringUtils.isEmpty(insertDto.get(SysConstance.CI_KEY).toString())){
             throw new CommonException(ErrorCode.BAD_REQUEST.getCode(), "缺少参数：ciKey");
         }
-	    return R.data(ciBusiModelService.saveNodeAndRelation(insertDto));
+	    return R.data(ciResourceService.saveNodeAndRelation(insertDto));
 	}
+
+    @ApiOperation(value="新增关联")
+    @PostMapping("/insert-rel")
+    public R<Void> insertRel(@RequestBody RelDTO dto) {
+        return R.status(ciResourceService.createRel(dto.getStartId(), dto.getEndId(), dto.getRelId()));
+    }
 
     @ApiOperation(value="修改")
     @PostMapping("/update")
@@ -54,14 +62,14 @@ public class CiBusiModelController {
         if(!updateDto.containsKey(SysConstance.FIELD_ID)){
             throw new CommonException(ErrorCode.BAD_REQUEST.getCode(), "缺少参数：id");
         }
-        ciBusiModelService.update(updateDto);
+        ciResourceService.update(updateDto);
 	    return R.status(true);
 	}
 
     @ApiOperation(value="删除")
 	@DeleteMapping("/delete")
 	public R<Void> delete(@NotNull @RequestParam(value="id") String id) {
-	    ciBusiModelService.delete(id);
+        ciResourceService.delete(id);
 	    return R.status(true);
 	}
 

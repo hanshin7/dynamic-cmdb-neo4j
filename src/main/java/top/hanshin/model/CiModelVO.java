@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class CiNode {
+public class CiModelVO {
 
 	private static final long serialVersionUID = -1508889323949003666L;
 	
@@ -19,6 +19,6 @@ public class CiNode {
 
     private boolean isEndItem;
 
-    private List<CiNode> children;
+    private List<CiModelVO> children;
 
 }

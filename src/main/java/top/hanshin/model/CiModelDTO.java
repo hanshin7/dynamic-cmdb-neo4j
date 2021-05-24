@@ -1,19 +1,16 @@
-package top.hanshin.model.node;
+package top.hanshin.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 import org.neo4j.ogm.annotation.NodeEntity;
+import top.hanshin.model.node.BaseNode;
 
+import java.util.Map;
 
-@NodeEntity("CI")
 @Data
-@NoArgsConstructor
-@Accessors(chain = true)
-public class Ci extends BaseNode {
+public class CiModelDTO {
 
-    //节点基础属性
-    //@Id
     private String code;
     private String parentCode;
     private String name;
@@ -21,7 +18,6 @@ public class Ci extends BaseNode {
     //叶子节点为true
     private Boolean endFlag;
     //业务表单字段属性
-    //@Convert
-    private String props; //map
+    private Map<String,Object> props;
 
 }
