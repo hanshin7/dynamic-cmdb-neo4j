@@ -12,12 +12,13 @@ public interface ICiResourceService {
 
     Map<String, Object> detail(String id);
 
-    Page<CiResource> list(PageDTO dto);
+    Page<Map<String, Object>> list(PageDTO dto);
 
     void update(Map<String,Object> kvMap);
 
     void delete(String id);
 
-    boolean createRel(String startId, String endId, String relName);
+    boolean createRel(String startId, String endId, String relId);
+    void deleteRel(String startId, String endId, String relName);
 
 }

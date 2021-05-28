@@ -4,19 +4,20 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.neo4j.ogm.annotation.*;
 import top.hanshin.model.node.CiModel;
+import top.hanshin.model.node.CiResource;
 
-@RelationshipEntity(type = "contain")
+@RelationshipEntity
 @Data
 @RequiredArgsConstructor
-public class CiModelRelation {
+public class CiResourceRelation {
 
     @Id
     @GeneratedValue
     private Long id;
 
     @StartNode
-    private final CiModel startNode;
+    private final CiResource startNode;
 
     @EndNode
-    private final CiModel endNode;
+    private final CiResource endNode;
 }

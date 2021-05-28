@@ -24,9 +24,14 @@ public class CqlExecUtils {
         return sessionHolder.getSession();
     }
 
-    public static Result query(SessionFactory sessionFactory, String cql){
+    public static Object query(SessionFactory sessionFactory, String cql){
         Session session = getSession(sessionFactory);
-        return session.query(cql, new HashMap<>(),false);
+        Result r = session.query(cql, new HashMap<>(),false);
+        ArrayList list = ((ArrayList)r.queryResults());
+        if(list.size() > 0){
+            return list.get(0);
+        }
+        return null;
     }
 
     public static boolean createRel(SessionFactory sessionFactory, String startId, String endId, CustomRel customRel) {
@@ -46,5 +51,11 @@ public class CqlExecUtils {
             return false;
         }
         return true;
+    }
+
+    public static void deleteRel(SessionFactory sessionFactory, String startId, String endId, String relName) {
+        Session session = getSession(sessionFactory);
+        String cql = "MATCH (s:CiResource{id:'" + startId+ "'})-[r:" + relName + "]->(e:CiResource{id:'" + endId + "'}) delete r";
+        Result r = session.query(cql, new HashMap<>());
     }
 }

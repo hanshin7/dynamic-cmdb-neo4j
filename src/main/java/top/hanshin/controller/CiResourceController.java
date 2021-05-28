@@ -13,6 +13,7 @@ import top.hanshin.constant.SysConstance;
 import top.hanshin.exception.CommonException;
 import top.hanshin.model.PageDTO;
 import top.hanshin.model.RelDTO;
+import top.hanshin.model.RelDeleteDTO;
 import top.hanshin.model.node.CiResource;
 import top.hanshin.service.ICiResourceService;
 import top.hanshin.util.R;
@@ -30,7 +31,7 @@ public class CiResourceController {
 
     @ApiOperation(value="资源列表")
 	@GetMapping("/list")
-	public R<Page<CiResource>> list(PageDTO dto) {
+	public R<Page<Map<String, Object>>> list(PageDTO dto) {
 	    return R.data(ciResourceService.list(dto));
 	}
 
@@ -72,5 +73,12 @@ public class CiResourceController {
         ciResourceService.delete(id);
 	    return R.status(true);
 	}
+
+    @ApiOperation(value="取消关联")
+    @PostMapping("/delete-rel")
+    public R<Void> deleteRel(@RequestBody RelDeleteDTO dto) {
+        ciResourceService.deleteRel(dto.getStartId(), dto.getEndId(), dto.getRelName());
+        return R.status(true);
+    }
 
 }

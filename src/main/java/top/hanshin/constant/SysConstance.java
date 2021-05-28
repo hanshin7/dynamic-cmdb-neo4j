@@ -11,9 +11,12 @@ public interface SysConstance {
     String CI_PROP_FIELD_KEY = "key";
     String CI_PROP_FIELD_NAME = "name";
     String CI_PROP_FIELD_DATATYPE = "dataType";
+    String CI_PROP_RELPROP = "relProp";
+    String CI_PROP_RELPROP_COL = "relCol";
 
 
     String FIELD_ID = "id";
+    String ID = "id";
 
     int HTTP_OK = 200;
 

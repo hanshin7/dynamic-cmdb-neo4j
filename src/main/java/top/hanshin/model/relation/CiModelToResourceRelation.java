@@ -6,7 +6,7 @@ import org.neo4j.ogm.annotation.*;
 import top.hanshin.model.node.CiModel;
 import top.hanshin.model.node.CiResource;
 
-@RelationshipEntity(type = "CI_MODEL")
+@RelationshipEntity(type = "contain")
 @Data
 @RequiredArgsConstructor
 public class CiModelToResourceRelation {

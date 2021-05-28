@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TreeUtil {
-   // private List<Ci> ciList;
 
     private TreeUtil() {
     }
