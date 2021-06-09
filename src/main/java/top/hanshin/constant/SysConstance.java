@@ -2,6 +2,8 @@ package top.hanshin.constant;
 
 public interface SysConstance {
 
+    String CHRA_DOUBLE_COLON = "::";
+
     String CI_KEY = "ciKey";
 
     String CI_PREX = "Ci_";

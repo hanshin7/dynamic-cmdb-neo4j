@@ -122,9 +122,9 @@ public class CiResourceService implements ICiResourceService {
                 String key = fieldDetailMap.get(SysConstance.CI_PROP_FIELD_KEY).toString();
                 // val格式为 节点::id
                 String val = (String) resultMap.get(key);
-                if(!StringUtils.isEmpty(val) && val.contains("::")){
-                    String node = val.split("::")[0];
-                    String nodeId = val.split("::")[1];
+                if(!StringUtils.isEmpty(val) && val.contains(SysConstance.CHRA_DOUBLE_COLON)){
+                    String node = val.split(SysConstance.CHRA_DOUBLE_COLON)[0];
+                    String nodeId = val.split(SysConstance.CHRA_DOUBLE_COLON)[1];
 
                     Map<String, String> relPropMap = (Map<String, String>) fieldDetailMap.get(SysConstance.CI_PROP_RELPROP);
                     String col = relPropMap.get(SysConstance.CI_PROP_RELPROP_COL);
@@ -174,6 +174,7 @@ public class CiResourceService implements ICiResourceService {
 
     @Override
     public boolean createRel(String startId, String endId, String relId) {
+        //检查该资源模型是否配置了该关系
         Optional<CustomRel> optionalCustomRel = customRelRepository.findById(relId);
         if(!optionalCustomRel.isPresent()){
             throw new CommonException(ErrorCode.BAD_REQUEST.getCode(), "不存在relId资源");

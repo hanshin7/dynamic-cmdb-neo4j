@@ -15,6 +15,7 @@ import top.hanshin.model.node.CiModel;
 import top.hanshin.service.ICiModelService;
 import top.hanshin.util.R;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -56,7 +57,8 @@ public class CiModelController {
                     .setParentCode(ciModelDTO.getParentCode())
                     .setEndFlag(ciModelDTO.getEndFlag())
                     .setName(ciModelDTO.getName())
-                    .setProps(new ObjectMapper().writeValueAsString(ciModelDTO.getProps()));
+                    .setProps(ciModelDTO.getProps() == null ? new ObjectMapper().writeValueAsString(new HashMap<>())
+                        : new ObjectMapper().writeValueAsString(ciModelDTO.getProps()));
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }

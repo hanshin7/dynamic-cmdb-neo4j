@@ -17,4 +17,10 @@ public interface CiModelRepository extends Neo4jRepository<CiModel, String> {
 
     @Query("WITH {kvMap} as kv MATCH (n:CiModel{id:{id}}) SET n += kv")
     void setOrUpdateProp(@Param("id") String id, @Param("kvMap") Map<String,Object> kvMap);
+
+    @Query("MATCH ()-[r]->(e:CiModel{id:{id}}) delete r,e")
+    void deleteRelationAndNode(@Param("id") String id);
+
+    @Query("MATCH (s:CiModel{id:{id}})-[r]->() return count(r) as cnt")
+    Integer findStartRelById(@Param("id") String id);
 }

@@ -62,7 +62,10 @@ public class CiModelService implements ICiModelService {
 
     @Transactional
     public void delete(String ciId){
-
+        if(ciModelRepository.findStartRelById(ciId) > 0){
+            throw new CommonException(ErrorCode.BUSINESS_DELETE_FAILED.getCode(), "存在该节点为起始节点的关系，不允许删除");
+        }
+        ciModelRepository.deleteRelationAndNode(ciId);
     }
 
     @Override
